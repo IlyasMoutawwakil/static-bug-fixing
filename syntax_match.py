@@ -7,7 +7,7 @@ def calc_syntax_match(references, candidate, lang):
 
 
 def corpus_syntax_match(references, candidates, lang):
-    JAVA_LANGUAGE = Language('./java-library.so', lang)
+    JAVA_LANGUAGE = Language('data/java-library.so', lang)
     parser = Parser()
     parser.set_language(JAVA_LANGUAGE)
     match_count = 0
@@ -37,6 +37,7 @@ def corpus_syntax_match(references, candidates, lang):
                             depth = cur_depth + 1
                             node_stack.append([child_node, depth])
                 return sub_tree_sexp_list
+            
             cand_sexps = [x[0] for x in get_all_sub_trees(candidate_tree)]
             ref_sexps = get_all_sub_trees(reference_tree)
 
