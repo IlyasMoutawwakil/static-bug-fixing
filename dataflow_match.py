@@ -24,11 +24,11 @@ def corpus_dataflow_match(references, candidates, lang):
             try:
                 candidate = remove_comments_and_docstrings(candidate, 'java')
             except:
-                pass
+                print("WARNING: There is no candidate data-flows extracted from the whole corpus, and the data-flow match score degenerates to 0. Please consider ignoring this score.")
             try:
                 reference = remove_comments_and_docstrings(reference, 'java')
             except:
-                pass
+                print("WARNING: There is no reference data-flows extracted from the whole corpus, and the data-flow match score degenerates to 0. Please consider ignoring this score.")
 
             cand_dfg = get_data_flow(candidate, parser)
             ref_dfg = get_data_flow(reference, parser)
@@ -39,6 +39,8 @@ def corpus_dataflow_match(references, candidates, lang):
             if len(normalized_ref_dfg) > 0:
                 total_count += len(normalized_ref_dfg)
                 for dataflow in normalized_ref_dfg:
+                    print(dataflow)
+                    print(normalized_cand_dfg)
                     if dataflow in normalized_cand_dfg:
                         match_count += 1
                         normalized_cand_dfg.remove(dataflow)
