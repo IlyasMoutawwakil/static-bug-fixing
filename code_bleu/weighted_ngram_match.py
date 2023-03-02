@@ -4,7 +4,7 @@ import warnings
 from fractions import Fraction
 from collections import Counter
 
-from utils import ngrams
+from code_bleu.utils import ngrams
 
 
 def sentence_bleu(

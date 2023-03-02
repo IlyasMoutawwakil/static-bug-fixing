@@ -1,7 +1,5 @@
-import re
-from DFG import remove_comments_and_docstrings
 from tree_sitter import Language, Parser
-
+from code_bleu.utils import remove_comments_and_docstrings
 
 BIN_OP = ['+', '-', '*', '/', '%', '&', '|', '^', '~', '!', '=', '>', '<', '?', ':', ',', '.',
           '==', '!=', '>', '<', '>=', '<=', '&&', '||', '++', '--', '<<', '>>', '>>>', '+=', '-=']
@@ -14,8 +12,10 @@ def calc_syntax_match(references, candidate, lang):
 def get_all_sub_trees(root_node, source_code):
     node_stack = []
     sub_tree_sexp_list = []
+
     depth = 1
     node_stack.append([root_node, depth])
+
     while len(node_stack) != 0:
         cur_node, cur_depth = node_stack.pop()
 
@@ -53,7 +53,7 @@ def corpus_syntax_match(references, candidates, lang):
                           for x in get_all_sub_trees(candidate_tree, candidate)]
             ref_sexps = get_all_sub_trees(reference_tree, reference)
 
-            for sub_tree, depth in ref_sexps:
+            for sub_tree, _ in ref_sexps:
                 if sub_tree in cand_sexps:
                     match_count += 1
             total_count += len(ref_sexps)
